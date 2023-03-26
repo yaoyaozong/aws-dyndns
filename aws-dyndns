@@ -56,7 +56,7 @@ while [ 1 ] ; do
 				"Action": "UPSERT",
 				"ResourceRecordSet": {
 					"Name": "$DNS_FQDN.",
-					"Type": "A",
+					"Type": "AAAA",
 					"TTL": $DNS_TTL,
 					"ResourceRecords": [
 						{
