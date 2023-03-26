@@ -10,7 +10,8 @@ EOF
 }
 
 function validate_ip() {
-	[[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]
+	#[[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]
+	[[ $1 =~ ^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$ ]]
 }
 
 [ "$#" -eq 4 ] || usage
@@ -27,8 +28,8 @@ while [ 1 ] ; do
 	sleep "${TS}s"
 	TS="$REFRESH_TIME" # first run is without a sleep
 
-	OLD_IP="$(dig +short "$DNS_FQDN")"
-	NEW_IP="$(curl -sS --max-time 5 https://api.ipify.org)"
+	OLD_IP="$(dig AAAA +short "$DNS_FQDN")"
+	NEW_IP="$(curl -6 --interface ens19 -sS --max-time 5 ifconfig.io)"
 
 	if ! validate_ip "$OLD_IP" ; then
 		echo "Invalid OLD_IP: $OLD_IP"
