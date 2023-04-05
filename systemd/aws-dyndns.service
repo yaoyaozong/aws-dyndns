@@ -5,8 +5,7 @@ After=network.target
 [Service]
 ExecStart=/usr/local/sbin/aws-dyndns $UPDATE_DNS_FQDN $UPDATE_DNS_TTL $UPDATE_AWS_ZONE_ID $UPDATE_RECHECK_SECS
 Type=simple
-User=nobody
-Group=nogroup
+DynamicUser=yes
 EnvironmentFile=/etc/aws-dyndns.conf
 
 [Install]
